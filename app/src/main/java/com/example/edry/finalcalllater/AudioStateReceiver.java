@@ -4,7 +4,13 @@ import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.media.AudioManager;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AudioStateReceiver extends BroadcastReceiver {
 
@@ -21,7 +27,7 @@ public class AudioStateReceiver extends BroadcastReceiver {
 
                 case AudioManager.RINGER_MODE_SILENT:
 
-                     if(! isMyServiceRunning(SleepModeService.class,context)) {
+                     if(! isMyServiceRunning(SleepModeService.class,context) && isAprroved( context) ) {
 
                        startSleeperWindow Slper = new startSleeperWindow(context);
                      }
@@ -62,4 +68,30 @@ public class AudioStateReceiver extends BroadcastReceiver {
         return false;
     }
 
+    private boolean isAprroved(Context context)  {
+
+        boolean x = false;
+        try{
+            x = new SimpleDateFormat("MM/yyyy").parse("3/2018").after(new Date());
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        System.out.println("Flow: isAprroved : isMyServiceRunning  " + x);
+
+
+        if (x)
+            return true;
+        else
+        {
+
+            Toast.makeText(context,"Please Download a new version", Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+
+
+    }
 }
