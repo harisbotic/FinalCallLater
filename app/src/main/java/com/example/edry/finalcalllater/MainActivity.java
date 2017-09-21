@@ -14,6 +14,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+import static com.example.edry.finalcalllater.PowerSaverHelper.prepareIntentForWhiteListingOfBatteryOptimization;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         requestProcessOutgoingCallPermission();
         requestReadPhoneStatePermission();
-        requestReadPhoneStatePermission();
+        requestReadSmsPermission();
         requestSendSmsPermission();
 
         }
@@ -110,7 +112,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        private void requestReadSmsPermission() {
+    public void checkDozePermission() {
+        Intent intent = prepareIntentForWhiteListingOfBatteryOptimization(MainActivity.this, "com.example.edry.finalcalllater", false);
+        if(intent != null)
+            startActivity(intent);
+    }
+
+
+    private void requestReadSmsPermission() {
 
             String permission = Manifest.permission.READ_SMS;
 

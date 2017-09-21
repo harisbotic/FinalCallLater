@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.icu.util.TimeZone;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -80,12 +81,19 @@ public class startSleeperWindow extends PopUpWindow {
 
                 myContext.startService(newCallOutIntent);
 
-                AlarmManager mgr=
-                        (AlarmManager)myContext.getSystemService(Context.ALARM_SERVICE);
+                AlarmManager mgr= (AlarmManager)myContext.getSystemService(Context.ALARM_SERVICE);
 
-                    Intent i=new Intent(myContext, StopSleepModeReceiver.class);
-                PendingIntent pi= PendingIntent.getBroadcast(myContext, 0, i, 0);
-                mgr.set(AlarmManager.RTC,calSet.getTimeInMillis(),pi);
+                Intent i=new Intent(myContext, StopSleepModeReceiver.class);
+
+                PendingIntent pi= PendingIntent.getBroadcast(myContext, 33, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+
+                if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    mgr.setAndAllowWhileIdle(AlarmManager.RTC, calSet.getTimeInMillis(), pi);
+                else
+                    mgr.set(AlarmManager.RTC, calSet.getTimeInMillis(), pi);
+
 
                 removeView();
 

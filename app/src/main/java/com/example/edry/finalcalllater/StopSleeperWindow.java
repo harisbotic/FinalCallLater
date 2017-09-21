@@ -39,6 +39,10 @@ public class StopSleeperWindow extends PopUpWindow {
         KeepRemainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyPhoneState SoundUp = new MyPhoneState();
+
+                SoundUp.onCallStateChanged(myContext,0,null);
+
                 removeView();
             }
         });

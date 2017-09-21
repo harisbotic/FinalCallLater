@@ -130,7 +130,7 @@ public class OnPhoneCallService extends Service {
 
                     case "OUTGOING":
 
-                        System.out.println("Flow: case result : INCOMING");
+                        System.out.println("Flow: case result : OUTGOING");
 
                         new EmergencyWindow(getApplicationContext(), EXTRA_NUMBER , EXTRA_CODE);
 
@@ -198,20 +198,16 @@ public class OnPhoneCallService extends Service {
     private boolean IsEqual(String p1, String p2)
     {
 
-            if(p1.length()==13)
-                p1 = p1.substring(4);
-            else
-                p1 = p1.substring(1);
+        String num1 = p1.substring(p1.length()-6, p1.length()-1);
 
-        if(p2.length()==11)
-            p2 = p2.substring(1);
-        else
-            p2 = p2.substring(4);
-
-        System.out.println("Flow: " + p1 +"  " +p2);
+        String num2 = p2.substring(p2.length()-6, p2.length()-1);
 
 
-        return p1.equals(p2);
+        System.out.println("Flow:  num1 " + num1 + " num2 " +num2 + " IsEqual " + num1.equals(num2));
+
+
+
+        return num1.equals(num2);
 
     }
 
